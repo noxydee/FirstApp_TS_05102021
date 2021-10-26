@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         questions = GetQuestions().toArray(new Question[0]);
         CurrentQuestionPoint = 0;
 
+        trueButton.setBackgroundColor(getResources().getColor(R.color.Green_correct));
+
         trueButton.setOnClickListener(new View.OnClickListener() {
             @SneakyThrows
             @Override
