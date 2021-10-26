@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +24,8 @@ import lombok.SneakyThrows;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String QUIZ_TAG = "MainActivity";
+
     private TextView HelloBox;
     private TextView questionTextBox;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(QUIZ_TAG, "onCreate Method was invoked");
         setContentView(R.layout.activity_main);
 
         trueButton = findViewById(R.id.trueButton);
@@ -73,6 +77,41 @@ public class MainActivity extends AppCompatActivity {
         });
         SetNextQuestionContent();
 
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        Log.d(QUIZ_TAG, "onStart Method was invoked");
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Log.d(QUIZ_TAG, "onResume Method was invoked");
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Log.d(QUIZ_TAG, "onPause Method was invoked");
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        Log.d(QUIZ_TAG, "onStop Method was invoked");
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        Log.d(QUIZ_TAG, "onDestroy Method was invoked");
     }
 
     private void SetNextQuestionContent()
@@ -127,8 +166,5 @@ public class MainActivity extends AppCompatActivity {
 
         return questionList;
     }
-
-
-
 
 }
