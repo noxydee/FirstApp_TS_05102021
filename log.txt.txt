@@ -1,0 +1,30 @@
+Po pierwszym uruchomieniu aplikacji
+2021-10-26 09:56:15.484 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onCreate Method was invoked
+2021-10-26 09:56:15.601 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStart Method was invoked
+2021-10-26 09:56:15.603 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onResume Method was invoked
+
+Po wciśnięciu przycisku cofnij
+2021-10-26 09:56:37.094 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onPause Method was invoked
+2021-10-26 09:56:37.878 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStop Method was invoked
+2021-10-26 09:56:37.880 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onDestroy Method was invoked
+
+Po ponownym uruchomieniu aplikacji
+2021-10-26 09:56:49.053 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onCreate Method was invoked
+2021-10-26 09:56:49.085 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStart Method was invoked
+2021-10-26 09:56:49.086 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onResume Method was invoked
+
+Po wciśnięciu przycisku home
+2021-10-26 09:57:41.275 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onPause Method was invoked
+2021-10-26 09:57:42.254 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStop Method was invoked
+
+Po powrocie do aplikacji z listy ostatnio używanych
+2021-10-26 09:57:53.431 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStart Method was invoked
+2021-10-26 09:57:53.432 24048-24048/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onResume Method was invoked
+
+Obrócenie ekranu
+2021-11-01 19:29:37.375 24221-24221/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onPause Method was invoked
+2021-11-01 19:29:37.416 24221-24221/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStop Method was invoked
+2021-11-01 19:29:37.417 24221-24221/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onDestroy Method was invoked
+2021-11-01 19:29:37.465 24221-24221/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onCreate Method was invoked
+2021-11-01 19:29:37.504 24221-24221/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onStart Method was invoked
+2021-11-01 19:29:37.504 24221-24221/pl.edu.pb.firstapp_ts_05102021 D/MainActivity: onResume Method was invoked
