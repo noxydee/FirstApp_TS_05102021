@@ -1,11 +1,15 @@
 package pl.edu.pb.firstapp_ts_05102021;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +29,11 @@ import lombok.SneakyThrows;
 public class MainActivity extends AppCompatActivity {
 
     private static final String QUIZ_TAG = "MainActivity";
+    private static final String KEY_CURRENT_INDEX = "currentIndex";
+    public static final String KEY_EXTRA_ANSWER = "pl.edu.pb.wi.quiz.correctAnswer";
+    private static final int REQUEST_CODE_PROMPT = 0;
+    private boolean answerWasShown;
+
 
     private TextView HelloBox;
     private TextView questionTextBox;
@@ -32,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private Button trueButton;
     private Button falseButton;
     private Button nextButton;
+    private Button promptButton;
+
 
     public Question[] questions = GetQuestions().toArray(new Question[0]);
     public int CurrentQuestionPoint = 0;
@@ -46,11 +57,18 @@ public class MainActivity extends AppCompatActivity {
         falseButton = findViewById(R.id.falseButton);
         nextButton = findViewById(R.id.nextButton);
         questionTextBox = findViewById(R.id.questionText001);
+        promptButton = findViewById(R.id.button2);
 
         questions = GetQuestions().toArray(new Question[0]);
         CurrentQuestionPoint = 0;
 
         trueButton.setBackgroundColor(getResources().getColor(R.color.Green_correct));
+        falseButton.setBackgroundColor(getResources().getColor(R.color.Red_incorrect));
+
+        if(savedInstanceState != null)
+        {
+            CurrentQuestionPoint = savedInstanceState.getInt(KEY_CURRENT_INDEX);
+        }
 
         trueButton.setOnClickListener(new View.OnClickListener() {
             @SneakyThrows
@@ -68,15 +86,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        /*nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CurrentQuestionPoint = (CurrentQuestionPoint +1)%questions.length;
+                answerWasShown = false;
                 SetNextQuestionContent();
             }
-        });
-        SetNextQuestionContent();
 
+        });*/
+
+        nextButton.setOnClickListener((v) -> {
+            answerWasShown = false;
+            setNextQuestion();
+        });
+
+        promptButton.setOnClickListener((v) -> {
+            Intent intent = new Intent(MainActivity.this, PromptActivity.class);
+
+            boolean correctAnswer = questions[CurrentQuestionPoint].isQuestionTrue();
+
+            intent.putExtra(KEY_EXTRA_ANSWER, correctAnswer);
+            startActivityForResult(intent, REQUEST_CODE_PROMPT);
+        });
+
+        SetNextQuestionContent();
+    }
+
+    private void setNextQuestion() {
+        CurrentQuestionPoint = (CurrentQuestionPoint +1)%questions.length;
+        SetNextQuestionContent();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == REQUEST_CODE_PROMPT) {
+            if (data == null) return;
+            answerWasShown = data.getBooleanExtra(PromptActivity.KEY_EXTRA_ANSWER_SHOWN, false);
+        }
     }
 
     @Override
@@ -114,6 +163,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d(QUIZ_TAG, "onDestroy Method was invoked");
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(QUIZ_TAG, "onSaveInstanceState was invoked");
+        outState.putInt(KEY_CURRENT_INDEX, CurrentQuestionPoint);
+    }
+
     private void SetNextQuestionContent()
     {
         questionTextBox.setText(questions[CurrentQuestionPoint].QuestionContent);
@@ -129,17 +185,20 @@ public class MainActivity extends AppCompatActivity {
     private void CheckAnswer(Question question ,boolean userAnswer) throws InterruptedException {
         int result = 0;
         String colorString;
-        if(userAnswer == question.QuestionTrue)
+        if(answerWasShown)
         {
-            result = R.string.correct_answer;
-            LinearLayout layout = (LinearLayout) findViewById(R.id.LinearBackground);
-            layout.setBackgroundColor(getResources().getColor(R.color.Green_correct));
+            result = R.string.answer_was_shown;
         }
-        else
-        {
-            result = R.string.wrong_answer;
-            LinearLayout layout = (LinearLayout) findViewById(R.id.LinearBackground);
-            layout.setBackgroundColor(getResources().getColor(R.color.Red_incorrect));
+        else {
+            if (userAnswer == question.QuestionTrue) {
+                result = R.string.correct_answer;
+                LinearLayout layout = (LinearLayout) findViewById(R.id.LinearBackground);
+                layout.setBackgroundColor(getResources().getColor(R.color.Green_correct));
+            } else {
+                result = R.string.wrong_answer;
+                LinearLayout layout = (LinearLayout) findViewById(R.id.LinearBackground);
+                layout.setBackgroundColor(getResources().getColor(R.color.Red_incorrect));
+            }
         }
         Toast toast = Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT);
         toast.show();

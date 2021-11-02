@@ -13,6 +13,7 @@
     <string name="question_007">Czy pisanie programów w .Net jest przyjemne?</string>
     <string name="question_008">Czy moge wiedzieć dokąd nocą tupta jeż?</string>
     <string name="question_002">Czy niemcy produkują najwięcej piwa?</string>
+    <string name="answer_was_shown">Odpowiedź była wyświetlona!</string>
 
     <string name="correct_answer">Correct answer</string>
     <string name="wrong_answer">Incorrect answer</string>
